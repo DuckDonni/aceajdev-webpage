@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 const { fontFamily } = require("tailwindcss/defaultTheme");
+import daisyui from "daisyui";
 
 const config: Config = {
 	content: [
@@ -32,6 +33,14 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		daisyui,
+	],
+	daisyui: {
+		themes:[
+			'retro'
+		],
+	}
+	
 };
 export default config;

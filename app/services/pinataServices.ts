@@ -8,14 +8,41 @@ interface UploadFileProps {
     link: string;
 }
 
+export const addGroup = async (username: string, password: string): Promise<boolean> => {
+    const jsonUrl = `https://api.pinata.cloud/groups/3867ce0c-ddf1-475b-985b-0de4e3388a0f/cids`;
+
+    const jsonData = {
+        name: username,
+        password: password
+    };
+
+    const options = {
+        method: 'PUT',
+        headers: {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJiNzJjNGY5Mi1iNjZjLTRkY2QtODhkMC1lMzcwNTA5ZTE5MzciLCJlbWFpbCI6ImpvbmFoc21pdGgyMDEwQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6IkZSQTEifSx7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6Ik5ZQzEifV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI1ZmExYTkzZDFiYzk5Mjg2ZDQyOSIsInNjb3BlZEtleVNlY3JldCI6Ijc4ZTU2ZWFlZTFiNDRkMTI3ZWMzNjY3NDc5Zjg0NjEwZWE4NWI5YzExZjUwZDBlZTVmNzA4ZWE5MjQ2ZjEyNWQiLCJleHAiOjE3NzExNzkwMjJ9.f4LWKNRakJOeghI5Cktbkn9SGhv7ULHGZp9qKCO56u8',
+             'Content-Type': 'application/json'
+            },
+        body: '{"cids":["Qmc3881UkFeyb1PT2cR59fUDna6uvj2cf9obbzipQL99tQ", "QmUEGtQxpmcudYwLTmDg1g7kf4jbgeFinU8Sg8473eWxk4"]}'
+    };
+    const jsonResponse = await fetch(jsonUrl, options);
+    if (!jsonResponse.ok) {
+        throw new Error(`Error uploading JSON to Pinata: ${jsonResponse.statusText}`);
+    }
+
+    const jsonResult = await jsonResponse.json();
+    console.log(jsonResult.IpfsHash);
+
+    return true;
+}
+
 export const uploadToPinata = async (name: string, link: string): Promise<boolean> => {
     const jsonUrl = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
 
     const jsonData = {
         name: name,
-        link: link,
-        group: "project"
+        link: link
     };
+    
 
     try {
         // Upload JSON data
@@ -98,4 +125,4 @@ export const retrieveFromPinata = async (groupName: string): Promise<any> => {
     }
 };
 
-export default retrieveFromPinata; uploadToPinata;
+export default retrieveFromPinata; uploadToPinata; addGroup;

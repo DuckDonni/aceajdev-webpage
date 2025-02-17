@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { uploadToPinata, retrieveFromPinata } from "@/app/services/pinataServices";
+import { uploadToPinata, retrieveFromPinata, addGroup } from "@/app/services/pinataServices";
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handleLogin = async () => {
-        const success = await uploadToPinata(username, password);
+        const success = await addGroup(username, password);
         if (success) {
             console.log("Login successful");
         } else {

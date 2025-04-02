@@ -8,7 +8,7 @@ const nextConfig = {
   basePath: isProd ? '/DuckDonni' : '',
   //basePath: isProd ? '/aceajdev-webpage' : '',
   output: 'export',
-  distDir: 'out',
+  distDir: 'dist',
 };
 
 export default nextConfig;

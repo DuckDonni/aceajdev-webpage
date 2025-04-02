@@ -9,7 +9,7 @@ export default function HomePage() {
 
 	return(
 		<div>
-			<Home/>
+			<h1>home</h1>
 		</div>
 		
 	);

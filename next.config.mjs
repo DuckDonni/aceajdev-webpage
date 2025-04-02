@@ -5,7 +5,8 @@ const nextConfig = {
     unoptimized: true, // Disable default image optimization
   },
   assetPrefix: isProd ? '/aceajdev-webpage/' : '',
-  basePath: isProd ? '/DuckDonni' : '',
+  //basePath: isProd ? '/DuckDonni' : '',
+  basePath: isProd ? '/aceajdev-webpage' : '',
   output: 'export',
   distDir: 'out',
 };

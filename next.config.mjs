@@ -7,7 +7,7 @@ const nextConfig = {
   assetPrefix: isProd ? '/aceajdev-webpage/' : '',
   basePath: isProd ? '/DuckDonni' : '',
   output: 'export',
-  distDir: 'dist',
+  distDir: 'out',
 };
 
 export default nextConfig;

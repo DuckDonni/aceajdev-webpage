@@ -7,12 +7,11 @@ import Files from "../components/Files";
 import Home from "./pages/home/page";
 export default function HomePage() {
 
-	return(
-		<div>
-			<Home />
-		</div>
-		
-	);
+	return (
+        <div>
+            Home
+        </div>
+    );
 
 
 	// const [file, setFile] = useState("");

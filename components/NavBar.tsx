@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
     return (
         <div className="navbar bg-neutral text-neutral-content ">
             <div className="flex-1">
-                <a className="btn btn-ghost normal-case text-xl hover:bg-primary hover:text-neutral-content"  onClick={() => handleNavigation("../pages/home")}>Jonah Smith</a>
+                <a className="btn btn-ghost normal-case text-xl hover:bg-primary hover:text-neutral-content"  onClick={() => handleNavigation("/")}>Jonah Smith</a>
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">

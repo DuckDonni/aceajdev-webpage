@@ -13,7 +13,7 @@ export const addGroup = async (username: string, password: string): Promise<bool
     const uploadUrl = "https://uploads.pinata.cloud/v3/files";
     const groupUrl = "https://api.pinata.cloud/v3/groups/public";
     const accountGroupID = `3867ce0c-ddf1-475b-985b-0de4e3388a0f`;
-    
+
     try {
         // Step 1: Create a JSON file from the username and password
         const jsonData = JSON.stringify({ username, password });
@@ -37,7 +37,7 @@ export const addGroup = async (username: string, password: string): Promise<bool
         }
 
         const uploadResponse = await uploadRequest.json();
-        const fileId = retrieveCID("accountDetails",username); // Adjust based on the actual response structure
+        const fileId = retrieveCID("accountDetails", username); // Adjust based on the actual response structure
         console.log("File uploaded successfully:", uploadResponse);
         console.log("File ID:", fileId);
         // Step 3: Add the file to the group
@@ -82,12 +82,56 @@ export const retrieveCID = async (type: string, name: string): Promise<string | 
         console.log("Response from Pinata:", response);
 
         // Access the files array from the response
-        const files = response.data?.files || [];
+        const files = response.data;
+
+
+        const listResponse = await fetch('https://api.pinata.cloud/data/pinList', {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${JWT}`,
+            }
+          });
+
+          const pinList = await listResponse.json();
+
+          for(const pin of pinList.rows) {
+            const cid = pin.ipfs_pin_hash;
+          }
+            
+            try {
+                const response = await fetch(`https://gateway.pinata.cloud/ipfs/${cid}`, {
+                    method: "GET",
+                    // Remove the Authorization header to avoid CORS issues
+                });
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        console.warn(`CID ${cid} not found.`);
+                    } else {
+                        console.warn(`Error fetching data for CID ${cid}: ${response.statusText}`);
+                    }
+                }
+
+                const contentType = response.headers.get("content-type");
+                
+            } catch (error) {
+                console.warn(`Error processing CID ${cid}: ${(error as any).message}`);
+            }
         
-        // Iterate through the files to find the one with the matching username
-        console.log("test",files[0].keyvalues);
+
+
+
+
+
+
+
+
+
+
+
+
         for (const file of files) {
-            if (file.metadata && file.metadata.username === name) {
+            if (file.name) {
                 console.log("File found:", file);
                 return file.cid; // Return the CID of the matching file
             }
@@ -108,7 +152,7 @@ export const uploadToPinata = async (name: string, link: string): Promise<boolea
         name: name,
         link: link
     };
-    
+
 
     try {
         // Upload JSON data
@@ -159,8 +203,8 @@ export const retrieveFromPinata = async (groupName: string): Promise<any> => {
     try {
         const response = await fetch(url, {
             headers: {
-                'pinata_api_key': '5fa1a93d1bc99286d429', 
-                'pinata_secret_api_key': '78e56eaee1b44d127ec3667479f84610ea85b9c11f50d0ee5f708ea9246f125d' 
+                'pinata_api_key': '5fa1a93d1bc99286d429',
+                'pinata_secret_api_key': '78e56eaee1b44d127ec3667479f84610ea85b9c11f50d0ee5f708ea9246f125d'
             }
         });
 

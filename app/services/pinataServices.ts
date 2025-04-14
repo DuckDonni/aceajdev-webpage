@@ -64,9 +64,9 @@ export const addGroup = async (username: string, password: string): Promise<bool
 };
 
 
-export const retrieveCID = async (type: string, name: string): Promise<string | boolean> => {
+export const retrieveCID = async (fileName: string, username: string): Promise<string | boolean> => {
     try {
-        const url = `https://api.pinata.cloud/v3/files/public`;
+        const url = `https://api.pinata.cloud/v3/files/public?name=${fileName}`;
         const request = await fetch(url, {
             method: "GET",
             headers: {
@@ -84,58 +84,90 @@ export const retrieveCID = async (type: string, name: string): Promise<string | 
         // Access the files array from the response
         const files = response.data;
 
+        //console.log("Files retrieved:", files.files);
 
-        const listResponse = await fetch('https://api.pinata.cloud/data/pinList', {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${JWT}`,
-            }
-          });
-
-          const pinList = await listResponse.json();
-
-          for(const pin of pinList.rows) {
-            const cid = pin.ipfs_pin_hash;
-          }
-            
+        for (const file of files.files) {
+            console.log("Cid found:", file.cid);
+            const cid = file.cid;
             try {
                 const response = await fetch(`https://gateway.pinata.cloud/ipfs/${cid}`, {
                     method: "GET",
                     // Remove the Authorization header to avoid CORS issues
                 });
+                const file = await response.json();
 
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        console.warn(`CID ${cid} not found.`);
-                    } else {
-                        console.warn(`Error fetching data for CID ${cid}: ${response.statusText}`);
-                    }
+                if(file){
+                    
                 }
+                console.log("Response ", file.username);
 
-                const contentType = response.headers.get("content-type");
-                
-            } catch (error) {
-                console.warn(`Error processing CID ${cid}: ${(error as any).message}`);
+            }catch(error){
+                console.warn('Error fetching data for CID:', cid, error);
             }
-        
 
 
-
-
-
-
-
-
-
-
-
-
-        for (const file of files) {
-            if (file.name) {
-                console.log("File found:", file);
-                return file.cid; // Return the CID of the matching file
-            }
         }
+
+        // const listResponse = await fetch('https://api.pinata.cloud/data/pinList', {
+        //     method: 'GET',
+        //     headers: {
+        //         Authorization: `Bearer ${JWT}`,
+        //     }
+        // });
+
+        // const pinList = await listResponse.json();
+
+
+
+        // let cidList = [];
+        // for (const pin of pinList.rows) {
+        //     const cid = pin.ipfs_pin_hash;
+
+
+        //     try {
+        //         const response = await fetch(`https://gateway.pinata.cloud/ipfs/${cid}`, {
+        //             method: "GET",
+        //             // Remove the Authorization header to avoid CORS issues
+        //         });
+
+        //         if (!response.ok) {
+        //             if (response.status === 404) {
+        //                 console.warn(`CID ${cid} not found.`);
+        //             } else {
+        //                 console.warn(`Error fetching data for CID ${cid}: ${response.statusText}`);
+        //             }
+        //         }
+
+        //         const contentType = response.headers.get("content-type");
+        //         console.log("response", response);
+        //         if (contentType && contentType.includes("application/json")) {
+        //             const data = await response.json();
+        //             cidList.push(data);
+        //         } else {
+        //             console.warn(`CID ${cid} does not contain JSON data.`);
+        //         }
+        //     } catch (error) {
+        //         console.warn(`Error processing CID ${cid}: ${(error as any).message}`);
+        //     }
+
+        // }
+
+
+
+
+
+
+
+
+
+
+
+        // for (const file of files) {
+        //     if (file.name) {
+        //         console.log("File found:", file);
+        //         return file.cid; // Return the CID of the matching file
+        //     }
+        // }
 
         console.log("File not found with the specified username.");
         return false; // Return false if no matching file is found

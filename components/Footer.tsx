@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
         <footer className="footer bg-neutral text-neutral-content items-center p-4">
             <aside className="grid-flow-col items-center">
             <p>
-                <a className="btn btn-ghost normal-case text-xl hover:bg-primary hover:text-neutral-content" onClick={() => router.push("../pages/login")}>Admin Portal</a>
+                {/* <a className="btn btn-ghost normal-case text-xl hover:bg-primary hover:text-neutral-content" onClick={() => router.push("../pages/login")}>Admin Portal</a> */}
             </p>
             </aside>
             <nav>

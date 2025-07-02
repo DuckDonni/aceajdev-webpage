@@ -5,12 +5,7 @@ import { useRouter } from "next/navigation";
 const Footer: React.FC = () => {
     const router = useRouter();
     return (
-        <footer className="footer bg-neutral text-neutral-content items-center p-4">
-            <aside className="grid-flow-col items-center">
-            <p>
-                {/* <a className="btn btn-ghost normal-case text-xl hover:bg-primary hover:text-neutral-content" onClick={() => router.push("../pages/login")}>Admin Portal</a> */}
-            </p>
-            </aside>
+        <footer className="footer bg-neutral text-neutral-content items-center p-4 justify-center">
             <nav>
                 <h6 className="footer-title">Socials</h6>
                 <div className="grid grid-flow-col gap-4">

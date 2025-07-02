@@ -38,7 +38,37 @@ const config: Config = {
 	],
 	daisyui: {
 		themes:[
-			'retro'
+			'light',
+			'dark',
+			'cupcake',
+			'bumblebee',
+			'emerald',
+			'corporate',
+			'synthwave',
+			'retro',
+			'cyberpunk',
+			'valentine',
+			'halloween',
+			'garden',
+			'forest',
+			'aqua',
+			'luxury',
+			'dracula',
+			'cmyk',
+			'pastel',
+			'fantasy',
+			'wireframe',
+			'autumn',
+			'black',
+			'lofi',
+			'coffee',
+			'winter',
+			'dim',
+			'nord',
+			'sunset',
+			'caramellatte',
+			'abyss',
+			'silk'
 		],
 	}
 	

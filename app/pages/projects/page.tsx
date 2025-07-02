@@ -12,7 +12,7 @@ const Projects: React.FC = () => {
     return (
         <div className="container mx-auto py-8">
             <h1 className="text-3xl font-bold mb-6">Projects</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6  w-full ">
                 {projectCards.map((project, idx) => (
                     
                     <div key={idx} className="card bg-base-100 rounded-box shadow-xl flex flex-col items-center">
@@ -34,7 +34,7 @@ const Projects: React.FC = () => {
                                 <div className="card-actions justify-end">
                                     <a
                                         href={project.link}
-                                        className="btn btn-primary"
+                                        className="btn btn-secondary"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
